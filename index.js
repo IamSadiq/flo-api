@@ -5,11 +5,12 @@ const bodyParser = require('body-parser');
 
 const app = express();
 const router = express.Router();
-const port = 5000;
+const port = 3000;
 
 router.get('/', (req, res)=>{
     res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.write("Enjoy the REST of the Flow!!");
+    // app.render('index')
+    // res.write("Enjoy the REST of the Flow!!");
 });
 
 // middlewares
