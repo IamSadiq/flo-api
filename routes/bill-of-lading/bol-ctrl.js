@@ -12,6 +12,7 @@ router
         if(err) throw err;
         res.json(bols);
     });
+    console.log('\n' + req.method + ' request triggered on port ' + (process.env.PORT || 3000) + ' at "' + req.url + '" end-point\n'); 
 })
 
 .get('/:id', (req, res) => {

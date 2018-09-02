@@ -18,11 +18,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors()); // enable cross-origin resource sharing
 
-app.use('/api/project', ProjectCtrl);
-app.use('/api/pfi', PfiCtrl);
-app.use('/api/ccvo', CcvoCtrl);
-app.use('/api/bol', BolCtrl);
-app.use('/api/eform', EformCtrl);
+// app.use('/api/project', ProjectCtrl);
+// app.use('/api/pfi', PfiCtrl);
+// app.use('/api/ccvo', CcvoCtrl);
+// app.use('/api/bol', BolCtrl);
+// app.use('/api/eform', EformCtrl);
 
 app.listen(port);
 console.log('Node server started on port: '+ port);
