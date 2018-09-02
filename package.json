@@ -1,5 +1,5 @@
 {
-  "name": "flow-backend",
+  "name": "flo-api",
   "version": "1.0.0",
   "description": "Rest Api for the flow shipping management app",
   "main": "index.js",
@@ -13,7 +13,7 @@
     "cookie-parser": "^1.4.3",
     "cors": "^2.8.4",
     "ejs": "^2.5.7",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "json-parser": "^1.1.5",
     "mongoose": "^4.13.5"
   }
