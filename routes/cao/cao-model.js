@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var PfiSchema = new Schema({
+var CaoSchema = new Schema({
     quantity: Number,
     price: Number,
     itemDetails: String,
@@ -9,4 +9,4 @@ var PfiSchema = new Schema({
     hsCode: String
 });
 
-module.exports = mongoose.model('Pfi', PfiSchema);
+module.exports = mongoose.model('Cao', CaoSchema);
