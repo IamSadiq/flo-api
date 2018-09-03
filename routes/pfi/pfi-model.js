@@ -9,4 +9,4 @@ var PfiSchema = new Schema({
     hsCode: String
 });
 
-module.exports = mongoose.model('Pfi', PfiSchema);
+module.exports = mongoose.model('ProFormalInvoice', PfiSchema);

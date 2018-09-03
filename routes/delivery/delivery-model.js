@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var DeliverySchema = new Schema({
-    file: File,
+    // file: File,
     remarks: String
 });
 

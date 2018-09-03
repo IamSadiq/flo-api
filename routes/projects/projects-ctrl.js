@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const express = require('express');
-const bodyPaser = require('body-parser');
+// const bodyPaser = require('body-parser');
 const Project = require('./projects-model');
 
 const router = express.Router();
@@ -23,7 +23,11 @@ router
 
 .post('/', (req, res) => {
     const newProject = Project({
-
+        projectId: req.body.projectId,
+        projectStartDate: req.body.projectStartDate,
+        projectName: req.body.projectName,
+        supplyCategory: req.body.supplyCategory,
+        supplierName: req.body.supplierName
     });
 
     newProject.save((err)=>{

@@ -4,12 +4,12 @@ var Schema = mongoose.Schema;
 var EformSchema = new Schema({
     productType: String,
     brandName: String,
-    modelName: String,
+    mName: String,
     quantity: Number,
     description: String,
     referenceNumber: String,
-    packaging: String,
-    file: file
+    packaging: String
+    // file: File
 });
 
 module.exports = mongoose.model('Eform', EformSchema);

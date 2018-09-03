@@ -19,19 +19,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors()); // enable cross-origin resource sharing
 
-// app.use('/api/project', ProjectCtrl);
-// app.use('/api/pfi', PfiCtrl);
-// app.use('/api/ccvo', CcvoCtrl);
-// app.use('/api/bol', BolCtrl);
-// app.use('/api/eform', EformCtrl);
+app.use('/api/project', ProjectCtrl);
+app.use('/api/pfi', PfiCtrl);
+app.use('/api/ccvo', CcvoCtrl);
+app.use('/api/bol', BolCtrl);
+app.use('/api/eform', EformCtrl);
 
 // test to render at '/'
-router.get('/', (req, res)=>{
-    res.writeHead(200, {"Content-Type": "text/plain"});
-    res.write("Hola! Flo Api");
-    res.end();
-});
-app.use('/', router);
+// router.get('/', (req, res)=>{
+//     res.writeHead(200, {"Content-Type": "text/plain"});
+//     res.write("Hola! Flo Api");
+//     res.end();
+// });
+// app.use('/', router);
 
 app.listen(port);
 console.log('Node server started on port: '+ port);

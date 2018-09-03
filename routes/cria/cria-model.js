@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var CriaSchema = new Schema({
-    file: File,
+    // file: File,
     bolNumber: String,
     billDate: String,
     eFormMNumber: String,
@@ -11,4 +11,4 @@ var CriaSchema = new Schema({
     inspectionDate: String
 });
 
-module.exports = mongoose.model('Cria', CriaSchema);
+module.exports = mongoose.model('CRIA', CriaSchema);
