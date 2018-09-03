@@ -23,7 +23,8 @@ router
 
 .post('/', (req, res) => {
     const newRegulatory = Regulatory({
-        // file: req.body.file
+        project: req.body.projectId,
+        docFile: req.body.file
     });
 
     newRegulatory.save((err)=>{
