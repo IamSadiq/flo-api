@@ -18,6 +18,7 @@ const CaoCtrl = require('./routes/cao/cao-ctrl');
 const DeliveryCtrl = require('./routes/delivery/delivery-ctrl');
 const InsuranceCtrl = require('./routes/insurance/insurance-ctrl');
 const InvoiceCtrl = require('./routes/invoice/invoice-model');
+const McCtrl = require('./routes/mc/mc-ctrl');
 
 // middlewares
 app.use(bodyParser.json());
@@ -34,6 +35,7 @@ app.use('/api/cao', CaoCtrl);
 app.use('/api/delivery', DeliveryCtrl);
 app.use('/api/insurance', InsuranceCtrl);
 app.use('/api/invoice', InvoiceCtrl);
+app.use('/api/mc', McCtrl);
 
 // test to render at '/'
 // router.get('/', (req, res)=>{
