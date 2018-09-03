@@ -9,41 +9,57 @@ router
 
 .get('/', (req, res) => {
     Regulatory.find({}, (err, data)=>{
-        if(err) throw err;
-        res.json(data);
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json(data);
     });
 })
 
 .get('/:id', (req, res) => {
     Regulatory.findById(req.params.id, (err, data) => {
-        if(err) throw err;
-        res.json(data);
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json(data);
     });
 })
 
 .post('/', (req, res) => {
     const newRegulatory = Regulatory({
         project: req.body.projectId,
-        docFile: req.body.docFile
+        docFile: req.body.file
     });
 
     newRegulatory.save((err)=>{
-        if(err) return res.status(500).send("failed to save");
-        else return res.status(200).send("successfully saved");
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json({status: "success"});
     });
 })
 
 .patch('/:id', (req, res) => {
-    Regulatory.update({project: req.params.id}, {docFile: req.body.docFile}, (err, response) => {
-        if(err) throw err;
+    myData = {
+        docFile: req.body.file
+    };
+
+    Regulatory.update({project: req.params.id}, myData, (err) => {
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json({status: "success"});
     });
 })
 
 .delete('/:id', (req, res) => {
-    Regulatory.remove({project: req.params.id}, (err)=>{
-        if (err) throw err;
+    Regulatory.remove({project: req.params.id}, (err) => {
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json({status: "success"});
     });
-})
+});
 
 // I don't think deleting all db entries is a feature we'll need --- but change my mind, convince me otherwise
 // .delete('/', (req, res) => {
