@@ -15,6 +15,7 @@ const BolCtrl = require('./routes/bill-of-lading/bol-ctrl');
 const CcvoCtrl = require('./routes/ccvo/ccvo-ctrl');
 const CriaCtrl = require('./routes/cria/cria-ctrl');
 const CaoCtrl = require('./routes/cao/cao-ctrl');
+const DeliveryCtrl = require('./routes/delivery/delivery-ctrl');
 
 // middlewares
 app.use(bodyParser.json());
@@ -28,6 +29,7 @@ app.use('/api/bol', BolCtrl);
 app.use('/api/eform', EformCtrl);
 app.use('/api/cria', CriaCtrl);
 app.use('/api/cao', CaoCtrl);
+app.use('/api/delivery', DeliveryCtrl);
 
 // test to render at '/'
 // router.get('/', (req, res)=>{
