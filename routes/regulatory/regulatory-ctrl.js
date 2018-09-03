@@ -31,6 +31,23 @@ router
         if(err) return res.status(500).send("failed to save");
         else return res.status(200).send("successfully saved");
     });
-});
+})
+
+.patch('/:id', (req, res) => {
+    Regulatory.update({project: req.params.id}, (err)=>{
+        if(err) throw err;
+    });
+})
+
+.delete('/:id', (req, res) => {
+    Regulatory.remove({project: req.params.id}, (err)=>{
+        if (err) throw err;
+    });
+})
+
+// I don't think deleting all db entries is a feature we'll need --- but change my mind, convince me otherwise
+// .delete('/', (req, res) => {
+
+// });
 
 module.exports = router;
