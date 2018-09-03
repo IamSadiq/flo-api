@@ -8,16 +8,16 @@ const router = express.Router();
 router
 
 .get('/', (req, res) => {
-    Regulatory.find({}, (err, pfis)=>{
+    Regulatory.find({}, (err, data)=>{
         if(err) throw err;
-        res.json(pfis);
+        res.json(data);
     });
 })
 
 .get('/:id', (req, res) => {
-    Regulatory.findById({_id: req.params.id}, (err, pfi) => {
+    Regulatory.findById(req.params.id, (err, data) => {
         if(err) throw err;
-        res.json(pfi);
+        res.json(data);
     });
 })
 
@@ -34,7 +34,7 @@ router
 })
 
 .patch('/:id', (req, res) => {
-    Regulatory.update({project: req.params.id}, (err)=>{
+    Regulatory.update({project: req.params.id}, (err, response)=>{
         if(err) throw err;
     });
 })
