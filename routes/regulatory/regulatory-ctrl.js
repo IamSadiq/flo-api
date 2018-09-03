@@ -24,7 +24,7 @@ router
 .post('/', (req, res) => {
     const newRegulatory = Regulatory({
         project: req.body.projectId,
-        docFile: req.body.file
+        docFile: req.body.docFile
     });
 
     newRegulatory.save((err)=>{
@@ -34,7 +34,7 @@ router
 })
 
 .patch('/:id', (req, res) => {
-    Regulatory.update({project: req.params.id}, (err, response)=>{
+    Regulatory.update({project: req.params.id}, {docFile: req.body.docFile}, (err, response) => {
         if(err) throw err;
     });
 })
