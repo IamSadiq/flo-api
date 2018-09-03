@@ -9,4 +9,4 @@ var CaoSchema = new Schema({
     hsCode: String
 });
 
-module.exports = mongoose.model('Cao', CaoSchema);
+module.exports = mongoose.model('CAO', CaoSchema);
