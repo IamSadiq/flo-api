@@ -6,7 +6,7 @@ var RegulatorySchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Projects'
     },
-    file: Buffer
+    docFile: String
 });
 
 module.exports = mongoose.model('Regulatory', RegulatorySchema);
