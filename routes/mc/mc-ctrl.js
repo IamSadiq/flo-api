@@ -15,18 +15,18 @@ router
 })
 
 .get('/:id', (req, res) => {
-    Invoice.findById({_id: req.params.id}, (err, pfi) => {
+    ManufacturerCertificate.findById({_id: req.params.id}, (err, pfi) => {
         if(err) throw err;
         res.json(pfi);
     });
 })
 
 .post('/', (req, res) => {
-    const newInvoice = Invoice({
+    const newManufacturerCertificate = ManufacturerCertificate({
         // file: req.body.file
     });
 
-    newInvoice.save((err)=>{
+    newManufacturerCertificate.save((err)=>{
         if(err) return res.status(500).send("failed to save");
         else return res.status(200).send("successfully saved");
     });
