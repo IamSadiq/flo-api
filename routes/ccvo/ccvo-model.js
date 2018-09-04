@@ -6,7 +6,12 @@ var CcvoSchema = new Schema({
     portOfDestination: String,
     dateOfShipment: String,
     shipmentId: String,
-    countryOfSupply: String
+    countryOfSupply: String,
+    docFile: String,
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Projects'
+    }
 });
 
 module.exports = mongoose.model('Ccvo', CcvoSchema);
