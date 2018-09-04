@@ -1,37 +1,83 @@
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
 const express = require('express');
-const bodyPaser = require('body-parser');
+// const bodyPaser = require('body-parser');
 const BillOfLading = require('./bol-model');
 
 const router = express.Router();
 
 router
 
+// retrieve all collection
 .get('/', (req, res) => {
-    BillOfLading.find({}, (err, bols)=>{
-        if(err) throw err;
-        res.json(bols);
+    BillOfLading.find({}, (err, data)=>{
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json(data);
     });
-    console.log('\n' + req.method + ' request triggered on port ' + (process.env.PORT || 3000) + ' at "' + req.url + '" end-point\n'); 
 })
 
+// retrieve a collection
 .get('/:id', (req, res) => {
-    BillOfLading.findById({_id: req.params.id}, (err, bol) => {
-        if(err) throw err;
-        res.json(bol);
+    BillOfLading.findById({project: req.params.id}, (err, data) => {
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json(data);
     });
 })
 
 .post('/', (req, res) => {
-    const newBol = BillOfLading({
-
+    const newBillOfLading = BillOfLading({
+        project: req.body.projectId,
+        docFile: req.body.file,
+        shippers: req.body.shippers,
+        countryOfOrigin: req.body.countryOfOrigin,
+        numberOfContainers: req.body.numberOfContainers,
+        expectedDateOfArrival: req.body.expectedDateOfArrival,
+        dateOfDeparture: req.body.dateOfDeparture
     });
 
-    newBol.save((err)=>{
-        // if(err) throw err;
-        if(err) return res.status(500).send("failed to save");
-        else return res.status(200).send("successfully saved");
+    newBillOfLading.save((err)=>{
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json({status: "success"});
+    });
+})
+
+// update a collection
+.patch('/:id', (req, res) => {
+    myData = {
+        docFile: req.body.file,
+        shippers: req.body.shippers,
+        countryOfOrigin: req.body.countryOfOrigin,
+        numberOfContainers: req.body.numberOfContainers,
+        expectedDateOfArrival: req.body.expectedDateOfArrival,
+        dateOfDeparture: req.body.dateOfDeparture
+    };
+
+    BillOfLading.update({project: req.params.id}, myData, (err) => {
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json({status: "success"});
+    });
+})
+
+// remove a collection
+.delete('/:id', (req, res) => {
+    BillOfLading.remove({project: req.params.id}, (err) => {
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json({status: "success"});
     });
 });
+
+// I don't think deleting all db entries is a feature we'll need --- but change my mind, convince me otherwise
+// .delete('/', (req, res) => {
+
+// });
 
 module.exports = router;
