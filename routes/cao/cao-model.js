@@ -6,7 +6,12 @@ var CaoSchema = new Schema({
     price: Number,
     itemDetails: String,
     pfiNumber: String,
-    hsCode: String
+    hsCode: String,
+    docFile: String,
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Projects'
+    }
 });
 
 module.exports = mongoose.model('CAO', CaoSchema);
