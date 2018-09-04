@@ -8,21 +8,27 @@ const router = express.Router();
 router
 
 .get('/', (req, res) => {
-    PackingList.find({}, (err, pfis)=>{
-        if(err) throw err;
-        res.json(pfis);
+    PackingList.find({}, (err, data)=>{
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json(data);
     });
 })
 
 .get('/:id', (req, res) => {
-    PackingList.findById({_id: req.params.id}, (err, pfi) => {
-        if(err) throw err;
-        res.json(pfi);
+    PackingList.findById({_id: req.params.id}, (err, data) => {
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json(data);
     });
 })
 
 .post('/', (req, res) => {
     const newPackingList = PackingList({
+        project: req.body.projectId,
+        docFile: req.body.file,
         bolNumber: req.body.bagageNumber,
         exportDate: req.body.exportDate,
         methodOfDispatch: req.body.methodOfDispatch,
@@ -43,18 +49,33 @@ router
     });
 
     newPackingList.save((err)=>{
-        if(err) return res.status(500).send("failed to save");
-        else return res.status(200).send("successfully saved");
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json({status: "success"});
     });
 })
 
 .patch('/:id', (req, res) => {
     myData = {
-        quantity: req.body.quantity,
-        price: req.body.price,
-        itemDetails: req.body.itemDetails,
-        pfiNumber: req.body.pfi,
-        hsCode: req.body.hsCode
+        docFile: req.body.file,
+        bolNumber: req.body.bagageNumber,
+        exportDate: req.body.exportDate,
+        methodOfDispatch: req.body.methodOfDispatch,
+        descOfGoods: req.body.descOfGoods,
+        grossWeight: req.body.grossWeight,
+        proofOfLoading: req.body.proofOfLoading,
+        proofOfDischarge: req.body.proofOfDischarge,
+        exportee: req.body.exportee,
+        typeOfShipment: req.body.typeOfShipment,
+        packingInformation: req.body.packingInformation,
+        numberOfPackages: req.body.numberOfPackages,
+        netWeight: req.body.netWeight,
+        containerNumber: req.body.containerNumber,
+        dateOfDeparture: req.body.dateOfDeparture,
+        finalDestination: req.body.finalDestination,
+        consignee: req.body.consignee,
+        bagageNumber: req.body.bagageNumber
     };
 
     PackingList.update({project: req.params.id}, myData, (err) => {

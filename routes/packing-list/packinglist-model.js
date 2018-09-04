@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var PackingListSchema = new Schema({
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Projects'
+    },
+    docFile: String,
     bolNumber: String,
     exportDate: String,
     methodOfDispatch: String,
