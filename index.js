@@ -43,13 +43,5 @@ app.use('/api/pl', PackingListCtrl);
 app.use('/api/receipt', ReceiptCtrl);
 app.use('/api/regulatory', RegulatoryCtrl);
 
-// test to render at '/'
-// router.get('/', (req, res)=>{
-//     res.writeHead(200, {"Content-Type": "text/plain"});
-//     res.write("Hola! Flo Api");
-//     res.end();
-// });
-// app.use('/', router);
-
 app.listen(port);
 console.log('Node server started on port: '+ port);
