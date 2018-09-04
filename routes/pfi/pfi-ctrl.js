@@ -27,6 +27,7 @@ router
 
 .post('/', (req, res) => {
     const newPfi = ProFormalInvoice({
+        project: req.body.projectId,
         quantity: req.body.quantity,
         price: req.body.price,
         itemDetails: req.body.itemDetails,
