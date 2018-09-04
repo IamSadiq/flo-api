@@ -36,8 +36,10 @@ router
     });
 
     newPfi.save((err)=>{
-        if(err) return res.status(500).send("failed to save");
-        else return res.status(200).send("successfully saved");
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json({status: "success"});
     });
 })
 
