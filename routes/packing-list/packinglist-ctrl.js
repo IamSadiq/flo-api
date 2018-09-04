@@ -7,6 +7,7 @@ const router = express.Router();
 
 router
 
+// retrieve all collection
 .get('/', (req, res) => {
     PackingList.find({}, (err, data)=>{
         if(err)
@@ -16,8 +17,9 @@ router
     });
 })
 
+// retrieve a collection
 .get('/:id', (req, res) => {
-    PackingList.findById({_id: req.params.id}, (err, data) => {
+    PackingList.findById({project: req.params.id}, (err, data) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -25,6 +27,7 @@ router
     });
 })
 
+// insert a collection
 .post('/', (req, res) => {
     const newPackingList = PackingList({
         project: req.body.projectId,
@@ -56,6 +59,7 @@ router
     });
 })
 
+// update a collection
 .patch('/:id', (req, res) => {
     myData = {
         docFile: req.body.file,
@@ -86,6 +90,7 @@ router
     });
 })
 
+// remove a collection
 .delete('/:id', (req, res) => {
     PackingList.remove({project: req.params.id}, (err) => {
         if(err)

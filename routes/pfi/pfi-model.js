@@ -10,7 +10,8 @@ var PfiSchema = new Schema({
     project: {
         type: Schema.Types.ObjectId,
         ref: 'Projects'
-    }
+    },
+    docFile: String
 });
 
 module.exports = mongoose.model('ProFormalInvoice', PfiSchema);

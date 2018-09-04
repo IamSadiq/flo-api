@@ -7,6 +7,7 @@ const router = express.Router();
 
 router
 
+// retrieve all collections
 .get('/', (req, res) => {
     ProFormalInvoice.find({}, (err, pfis)=>{
         if(err)
@@ -16,6 +17,7 @@ router
     });
 })
 
+// retreive a collection
 .get('/:id', (req, res) => {
     ProFormalInvoice.findById({project: req.params.id}, (err, pfi) => {
         if(err)
@@ -25,6 +27,7 @@ router
     });
 })
 
+// insert a collection
 .post('/', (req, res) => {
     const newPfi = ProFormalInvoice({
         project: req.body.projectId,
@@ -32,7 +35,8 @@ router
         price: req.body.price,
         itemDetails: req.body.itemDetails,
         pfiNumber: req.body.pfi,
-        hsCode: req.body.hsCode
+        hsCode: req.body.hsCode,
+        docFile: req.body.file
     });
 
     newPfi.save((err)=>{
@@ -43,13 +47,15 @@ router
     });
 })
 
+// update a collection
 .patch('/:id', (req, res) => {
     myData = {
         quantity: req.body.quantity,
         price: req.body.price,
         itemDetails: req.body.itemDetails,
         pfiNumber: req.body.pfi,
-        hsCode: req.body.hsCode
+        hsCode: req.body.hsCode,
+        docFile: req.body.file
     };
 
     ProFormalInvoice.update({project: req.params.id}, myData, (err) => {
@@ -60,6 +66,7 @@ router
     });
 })
 
+// delete a collection
 .delete('/:id', (req, res) => {
     ProFormalInvoice.remove({project: req.params.id}, (err) => {
         if(err)
