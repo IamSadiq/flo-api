@@ -19,7 +19,7 @@ router
 
 // retrieve a collection
 .get('/:id', (req, res) => {
-    Eform.findById({_id: req.params.id}, (err, eform) => {
+    Eform.findById({project: req.params.id}, (err, eform) => {
         if(err)
             res.json({status: "failure"});
         else
