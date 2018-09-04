@@ -6,7 +6,11 @@ var PfiSchema = new Schema({
     price: Number,
     itemDetails: String,
     pfiNumber: String,
-    hsCode: String
+    hsCode: String,
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Projects'
+    }
 });
 
 module.exports = mongoose.model('ProFormalInvoice', PfiSchema);

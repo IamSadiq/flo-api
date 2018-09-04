@@ -17,7 +17,7 @@ router
 })
 
 .get('/:id', (req, res) => {
-    Receipt.findById({_id: req.params.id}, (err, data) => {
+    Receipt.findById({project: req.params.id}, (err, data) => {
         if(err)
             res.json({status: "failure"});
         else
