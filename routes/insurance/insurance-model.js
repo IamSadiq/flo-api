@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var InsuranceSchema = new Schema({
-    // file: File
+    project: {
+        type: Schema.Types.ObjectId,
+        ref: 'Projects'
+    },
+    docFile: String
 });
 
 module.exports = mongoose.model('Insurance', InsuranceSchema);
