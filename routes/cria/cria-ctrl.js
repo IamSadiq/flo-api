@@ -1,6 +1,4 @@
-// const mongoose = require('mongoose');
 const express = require('express');
-// const bodyPaser = require('body-parser');
 const CRIA = require('./cria-model');
 
 const router = express.Router();
@@ -19,7 +17,7 @@ router
 
 // retrieve a collection
 .get('/:id', (req, res) => {
-    CRIA.findById({project: req.params.id}, (err, data) => {
+    CRIA.findById({_id: req.params.id}, (err, data) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -29,38 +27,19 @@ router
 
 // insert a collection
 .post('/', (req, res) => {
-    const newCria = CRIA({
-        project: req.body.projectId,
-        docFile: req.body.file,
-        bolNumber: req.body.bolNumber,
-        billDate: req.body.billDate,
-        eFormMNumber: req.body.eFormMNumber,
-        locNumber: req.body.locNumber,
-        dateOfInsurance: req.body.dateOfInsurance,
-        inspectionDate: req.body.inspectionDate
-    });
 
-    newCria.save((err)=>{
+    CRIA.create(req.body, (err, response)=>{
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", criaId: response._id});
     });
 })
 
 // update a collection
 .patch('/:id', (req, res) => {
-    myData = {
-        docFile: req.body.file,
-        bolNumber: req.body.bolNumber,
-        billDate: req.body.billDate,
-        eFormMNumber: req.body.eFormMNumber,
-        locNumber: req.body.locNumber,
-        dateOfInsurance: req.body.dateOfInsurance,
-        inspectionDate: req.body.inspectionDate
-    };
 
-    CRIA.update({project: req.params.id}, myData, (err) => {
+    CRIA.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -70,7 +49,7 @@ router
 
 // remove a collection
 .delete('/:id', (req, res) => {
-    CRIA.remove({project: req.params.id}, (err) => {
+    CRIA.remove({_id: req.params.id}, (err) => {
         if(err)
             res.json({status: "failure"});
         else

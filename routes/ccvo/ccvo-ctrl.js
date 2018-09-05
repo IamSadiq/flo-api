@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
 const express = require('express');
-// const bodyPaser = require('body-parser');
 const CCVO = require('./ccvo-model');
 
 const router = express.Router();
@@ -19,7 +17,7 @@ router
 
 // retrieve a collection
 .get('/:id', (req, res) => {
-    CCVO.findById({project: req.params.id}, (err, data) => {
+    CCVO.findById({_id: req.params.id}, (err, data) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -29,36 +27,19 @@ router
 
 // insert a collection
 .post('/', (req, res) => {
-    const newCCVO = CCVO({
-        project: req.body.projectId,
-        docFile: req.body.file,
-        eFormMNumber: req.body.eFormMNumber,
-        portOfDestination: req.body.portOfDestination,
-        dateOfShipment: req.body.dateOfShipment,
-        shipmentId: req.body.shipmentId,
-        countryOfSupply: req.body.countryOfSupply
-    });
 
-    newCCVO.save((err)=>{
+    CCVO.create(req.body, (err, response)=>{
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", ccvoId: response._id});
     });
 })
 
 // update a collection
 .patch('/:id', (req, res) => {
-    myData = {
-        docFile: req.body.file,
-        eFormMNumber: req.body.eFormMNumber,
-        portOfDestination: req.body.portOfDestination,
-        dateOfShipment: req.body.dateOfShipment,
-        shipmentId: req.body.shipmentId,
-        countryOfSupply: req.body.countryOfSupply
-    };
 
-    CCVO.update({project: req.params.id}, myData, (err) => {
+    CCVO.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -68,7 +49,7 @@ router
 
 // remove a collection
 .delete('/:id', (req, res) => {
-    CCVO.remove({project: req.params.id}, (err) => {
+    CCVO.remove({_id: req.params.id}, (err) => {
         if(err)
             res.json({status: "failure"});
         else
