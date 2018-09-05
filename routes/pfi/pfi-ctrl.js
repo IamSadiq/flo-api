@@ -17,7 +17,7 @@ router
 
 // retreive a collection
 .get('/:id', (req, res) => {
-    ProFormalInvoice.findById({project: req.params.id}, (err, pfi) => {
+    ProFormalInvoice.findById({_id: req.params.id}, (err, pfi) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -39,7 +39,7 @@ router
 // update a collection
 .patch('/:id', (req, res) => {
 
-    ProFormalInvoice.update({project: req.params.id}, req.body, (err) => {
+    ProFormalInvoice.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else

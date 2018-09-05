@@ -30,7 +30,7 @@ router
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success", projectId: response._id});
+            res.json({status: "success", project: response});
     });
 
     // newProject.save();
