@@ -1,8 +1,5 @@
-// const mongoose = require('mongoose');
 const express = require('express');
-// const bodyPaser = require('body-parser');
 const Receipt = require('./receipt-model');
-
 const router = express.Router();
 
 router
@@ -17,7 +14,7 @@ router
 })
 
 .get('/:id', (req, res) => {
-    Receipt.findById({project: req.params.id}, (err, data) => {
+    Receipt.findById({_id: req.params.id}, (err, data) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -26,15 +23,8 @@ router
 })
 
 .post('/', (req, res) => {
-    const newReceipt = Receipt({
-        project: req.body.projectId,
-        docFile: req.body.file,
-        receiptNumber: req.body.receiptNumber,
-        quantity: req.body.quantity,
-        totalPrice: req.body.totalPrice
-    });
 
-    newReceipt.save((err) => {
+    Receipt.create(req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -43,14 +33,7 @@ router
 })
 
 .patch('/:id', (req, res) => {
-    myData = {
-        docFile: req.body.file,
-        receiptNumber: req.body.receiptNumber,
-        quantity: req.body.quantity,
-        totalPrice: req.body.totalPrice
-    };
-
-    Receipt.update({project: req.params.id}, myData, (err) => {
+    Receipt.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
