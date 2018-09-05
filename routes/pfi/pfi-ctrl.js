@@ -1,6 +1,4 @@
-// const mongoose = require('mongoose');
 const express = require('express');
-// const bodyPaser = require('body-parser');
 const ProFormalInvoice = require('./pfi-model');
 
 const router = express.Router();
@@ -29,17 +27,8 @@ router
 
 // insert a collection
 .post('/', (req, res) => {
-    const newPfi = ProFormalInvoice({
-        project: req.body.projectId,
-        quantity: req.body.quantity,
-        price: req.body.price,
-        itemDetails: req.body.itemDetails,
-        pfiNumber: req.body.pfi,
-        hsCode: req.body.hsCode,
-        docFile: req.body.file
-    });
 
-    newPfi.save((err)=>{
+    ProFormalInvoice.create(req.body, (err)=>{
         if(err)
             res.json({status: "failure"});
         else
@@ -49,16 +38,8 @@ router
 
 // update a collection
 .patch('/:id', (req, res) => {
-    myData = {
-        quantity: req.body.quantity,
-        price: req.body.price,
-        itemDetails: req.body.itemDetails,
-        pfiNumber: req.body.pfi,
-        hsCode: req.body.hsCode,
-        docFile: req.body.file
-    };
 
-    ProFormalInvoice.update({project: req.params.id}, myData, (err) => {
+    ProFormalInvoice.update({project: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var projectSchema = new Schema({
-    projectId: String,
+    projectNumber: String,
     projectStartDate: String,
     projectName: String,
     supplyCategory: String,

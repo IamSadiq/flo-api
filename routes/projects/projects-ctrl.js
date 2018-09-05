@@ -1,56 +1,44 @@
-// const mongoose = require('mongoose');
 const express = require('express');
-// const bodyParser = require('body-parser');
 const Project = require('./projects-model');
-
 const router = express.Router();
-
-// router.use(bodyParser.json());
-// router.use(bodyParser.urlencoded({extended: true}));
 
 router
 
 .get('/', (req, res) => {
     Project.find({}, (err, projects)=>{
-        if(err) throw err;
-        res.json(projects);
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json(projects);
     });
 })
 
 .get('/:id', (req, res) => {
     Project.findById({_id: req.params.id}, (err, project) => {
-        if(err) throw err;
-        res.json(project);
+        if(err)
+            res.json({status: "failure"});
+        else
+            res.json(project);
     });
 })
 
 .post('/', (req, res) => {
-    const newProject = Project({
-        projectId: req.body.projectId,
-        projectStartDate: req.body.projectStartDate,
-        projectName: req.body.projectName,
-        supplyCategory: req.body.supplyCategory,
-        supplierName: req.body.supplierName
-    });
 
-    newProject.save((err)=>{
+    // Project.find({projectNumber: data.projectNumber}, (err, returnedData) => {})
+
+    Project.create(req.body, (err, response) => {
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", projectId: response._id});
     });
+
+    // newProject.save();
 })
 
 .patch('/:id', (req, res) => {
-    myData = {
-        projectId: req.body.projectId,
-        projectStartDate: req.body.projectStartDate,
-        projectName: req.body.projectName,
-        supplyCategory: req.body.supplyCategory,
-        supplierName: req.body.supplierName
-    };
 
-    Receipt.update({project: req.params.id}, myData, (err) => {
+    Project.update({project: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -59,7 +47,7 @@ router
 })
 
 .delete('/:id', (req, res) => {
-    Receipt.remove({project: req.params.id}, (err) => {
+    Project.remove({project: req.params.id}, (err) => {
         if(err)
             res.json({status: "failure"});
         else
