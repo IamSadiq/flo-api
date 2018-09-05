@@ -1,6 +1,4 @@
-// const mongoose = require('mongoose');
 const express = require('express');
-// const bodyPaser = require('body-parser');
 const CAO = require('./cao-model');
 
 const router = express.Router();
@@ -19,7 +17,7 @@ router
 
 // retrieve a collection
 .get('/:id', (req, res) => {
-    CAO.findById({project: req.params.id}, (err, data) => {
+    CAO.findById({_id: req.params.id}, (err, data) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -28,36 +26,19 @@ router
 })
 
 .post('/', (req, res) => {
-    const newCao = CAO({
-        project: req.body.projectId,
-        docFile: req.body.file,
-        quantity: req.body.quantity,
-        price: req.body.price,
-        itemDetails: req.body.itemDetails,
-        pfiNumber: req.body.pfiNumber,
-        hsCode: req.body.hsCode
-    });
 
-    newCao.save((err)=>{
+    CAO.create(req.body, (err, response) => {
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", caoId: response._id});
     });
 })
 
 // update a collection
 .patch('/:id', (req, res) => {
-    myData = {
-        docFile: req.body.file,
-        quantity: req.body.quantity,
-        price: req.body.price,
-        itemDetails: req.body.itemDetails,
-        pfiNumber: req.body.pfiNumber,
-        hsCode: req.body.hsCode
-    };
 
-    CAO.update({project: req.params.id}, myData, (err) => {
+    CAO.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -67,7 +48,7 @@ router
 
 // remove a collection
 .delete('/:id', (req, res) => {
-    CAO.remove({project: req.params.id}, (err) => {
+    CAO.remove({_id: req.params.id}, (err) => {
         if(err)
             res.json({status: "failure"});
         else
