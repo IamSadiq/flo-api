@@ -1,8 +1,5 @@
-// const mongoose = require('mongoose');
 const express = require('express');
-// const bodyPaser = require('body-parser');
 const Insurance = require('./insurance-model');
-
 const router = express.Router();
 
 router
@@ -19,7 +16,7 @@ router
 
 // retrieve a collection
 .get('/:id', (req, res) => {
-    Insurance.findById({project: req.params.id}, (err, data) => {
+    Insurance.findById({_id: req.params.id}, (err, data) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -29,26 +26,19 @@ router
 
 // insert a collection
 .post('/', (req, res) => {
-    const newInsurance = Insurance({
-        project: req.body.projectId,
-        docFile: req.body.file
-    });
 
-    newInsurance.save((err)=>{
+    Insurance.create(req.body, (err, response)=>{
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", insuranceId: response._id});
     });
 })
 
 // update a collection
 .patch('/:id', (req, res) => {
-    myData = {
-        docFile: req.body.file
-    };
 
-    Insurance.update({project: req.params.id}, myData, (err) => {
+    Insurance.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -58,7 +48,7 @@ router
 
 // remove a collection
 .delete('/:id', (req, res) => {
-    Insurance.remove({project: req.params.id}, (err) => {
+    Insurance.remove({_id: req.params.id}, (err) => {
         if(err)
             res.json({status: "failure"});
         else
