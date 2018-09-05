@@ -46,7 +46,7 @@ router
 })
 
 .delete('/:id', (req, res) => {
-    Regulatory.remove({project: req.params.id}, (err) => {
+    Regulatory.remove({_id: req.params.id}, (err) => {
         if(err)
             res.json({status: "failure"});
         else
