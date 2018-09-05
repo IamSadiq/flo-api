@@ -1,8 +1,5 @@
-// const mongoose = require('mongoose');
 const express = require('express');
-// const bodyPaser = require('body-parser');
 const ManufacturerCertificate = require('./mc-model');
-
 const router = express.Router();
 
 router
@@ -19,7 +16,7 @@ router
 
 // retrieve a collection
 .get('/:id', (req, res) => {
-    ManufacturerCertificate.findById({project: req.params.id}, (err, data) => {
+    ManufacturerCertificate.findById({_id: req.params.id}, (err, data) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -29,26 +26,19 @@ router
 
 // insert a collection
 .post('/', (req, res) => {
-    const newManufacturerCertificate = ManufacturerCertificate({
-        docFile: req.body.file,
-        project: req.body.projectId
-    });
 
-    newManufacturerCertificate.save((err)=>{
+    ManufacturerCertificate.create(req.body, (err, response)=>{
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", mcId: response._id});
     });
 })
 
 // update a collection
 .patch('/:id', (req, res) => {
-    myData = {
-        docFile: req.body.file
-    };
 
-    PackingList.update({project: req.params.id}, myData, (err) => {
+    PackingList.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -58,7 +48,7 @@ router
 
 // remove a collection
 .delete('/:id', (req, res) => {
-    PackingList.remove({project: req.params.id}, (err) => {
+    PackingList.remove({_id: req.params.id}, (err) => {
         if(err)
             res.json({status: "failure"});
         else
