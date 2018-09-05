@@ -1,6 +1,4 @@
-const mongoose = require('mongoose');
 const express = require('express');
-const bodyPaser = require('body-parser');
 const Eform = require('./eform-model');
 
 const router = express.Router();
@@ -19,7 +17,7 @@ router
 
 // retrieve a collection
 .get('/:id', (req, res) => {
-    Eform.findById({project: req.params.id}, (err, eform) => {
+    Eform.findById({_id: req.params.id}, (err, eform) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -29,40 +27,19 @@ router
 
 // insert a collection
 .post('/', (req, res) => {
-    const newEform = Eform({
-        project: req.body.projectId,
-        docFile: req.body.file,
-        productType: req.body.productType,
-        brandName: req.body.brandName,
-        mName: req.body.mName,
-        quantity: req.body.quantity,
-        description: req.body.description,
-        referenceNumber: req.body.referenceNumber,
-        packaging: req.body.packaging
-    });
 
-    newEform.save((err)=>{
+    Eform.create(req.body, (err, response)=>{
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", eformId: response._id});
     });
 })
 
 // update a collection
 .patch('/:id', (req, res) => {
-    myData = {
-        docFile: req.body.file,
-        productType: req.body.productType,
-        brandName: req.body.brandName,
-        mName: req.body.mName,
-        quantity: req.body.quantity,
-        description: req.body.description,
-        referenceNumber: req.body.referenceNumber,
-        packaging: req.body.packaging
-    };
 
-    Eform.update({project: req.params.id}, myData, (err) => {
+    Eform.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -72,7 +49,7 @@ router
 
 // remove a collection
 .delete('/:id', (req, res) => {
-    Eform.remove({project: req.params.id}, (err) => {
+    Eform.remove({_id: req.params.id}, (err) => {
         if(err)
             res.json({status: "failure"});
         else
