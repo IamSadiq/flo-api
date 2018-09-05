@@ -1,6 +1,4 @@
-// const mongoose = require('mongoose');
 const express = require('express');
-// const bodyPaser = require('body-parser');
 const BillOfLading = require('./bol-model');
 
 const router = express.Router();
@@ -19,7 +17,7 @@ router
 
 // retrieve a collection
 .get('/:id', (req, res) => {
-    BillOfLading.findById({project: req.params.id}, (err, data) => {
+    BillOfLading.findById({_id: req.params.id}, (err, data) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -28,36 +26,19 @@ router
 })
 
 .post('/', (req, res) => {
-    const newBillOfLading = BillOfLading({
-        project: req.body.projectId,
-        docFile: req.body.file,
-        shippers: req.body.shippers,
-        countryOfOrigin: req.body.countryOfOrigin,
-        numberOfContainers: req.body.numberOfContainers,
-        expectedDateOfArrival: req.body.expectedDateOfArrival,
-        dateOfDeparture: req.body.dateOfDeparture
-    });
 
-    newBillOfLading.save((err)=>{
+    BillOfLading.create(req.body, (err, response) => {
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", bolID: response._id});
     });
 })
 
 // update a collection
 .patch('/:id', (req, res) => {
-    myData = {
-        docFile: req.body.file,
-        shippers: req.body.shippers,
-        countryOfOrigin: req.body.countryOfOrigin,
-        numberOfContainers: req.body.numberOfContainers,
-        expectedDateOfArrival: req.body.expectedDateOfArrival,
-        dateOfDeparture: req.body.dateOfDeparture
-    };
 
-    BillOfLading.update({project: req.params.id}, myData, (err) => {
+    BillOfLading.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -67,7 +48,7 @@ router
 
 // remove a collection
 .delete('/:id', (req, res) => {
-    BillOfLading.remove({project: req.params.id}, (err) => {
+    BillOfLading.remove({_id: req.params.id}, (err) => {
         if(err)
             res.json({status: "failure"});
         else
