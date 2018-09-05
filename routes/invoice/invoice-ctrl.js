@@ -1,8 +1,5 @@
-// const mongoose = require('mongoose');
 const express = require('express');
-// const bodyPaser = require('body-parser');
 const Invoice = require('./invoice-model');
-
 const router = express.Router();
 
 router
@@ -29,32 +26,19 @@ router
 
 // insert a collection
 .post('/', (req, res) => {
-    const newInvoice = Invoice({
-        project: req.body.projectId,
-        docFile: req.body.file,
-        invoiceNumber: req.body.invoiceNumber,
-        quantity: req.body.quantity,
-        price: req.body.price
-    });
 
-    newInvoice.save((err)=>{
+    Invoice.create(req.body, (err, response)=>{
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", invoiceId: response._id});
     });
 })
 
 // update a collection
 .patch('/:id', (req, res) => {
-    myData = {
-        docFile: req.body.file,
-        invoiceNumber: req.body.invoiceNumber,
-        quantity: req.body.quantity,
-        price: req.body.price
-    };
 
-    Invoice.update({project: req.params.id}, myData, (err) => {
+    Invoice.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -64,7 +48,7 @@ router
 
 // remove a collection
 .delete('/:id', (req, res) => {
-    Invoice.remove({project: req.params.id}, (err) => {
+    Invoice.remove({_id: req.params.id}, (err) => {
         if(err)
             res.json({status: "failure"});
         else
