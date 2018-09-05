@@ -24,11 +24,11 @@ router
 
 .post('/', (req, res) => {
 
-    Receipt.create(req.body, (err) => {
+    Receipt.create(req.body, (err, response) => {
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", receiptId: response._id});
     });
 })
 

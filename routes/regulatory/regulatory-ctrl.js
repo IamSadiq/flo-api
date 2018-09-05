@@ -17,7 +17,7 @@ router
 })
 
 .get('/:id', (req, res) => {
-    Regulatory.findById(req.params.id, (err, data) => {
+    Regulatory.findById({_id: req.params.id}, (err, data) => {
         if(err)
             res.json({status: "failure"});
         else
@@ -26,25 +26,18 @@ router
 })
 
 .post('/', (req, res) => {
-    const newRegulatory = Regulatory({
-        project: req.body.projectId,
-        docFile: req.body.file
-    });
 
-    newRegulatory.save((err)=>{
+    Regulatory.create(req.body, (err, response)=>{
         if(err)
             res.json({status: "failure"});
         else
-            res.json({status: "success"});
+            res.json({status: "success", regulatoryId: response._id});
     });
 })
 
 .patch('/:id', (req, res) => {
-    myData = {
-        docFile: req.body.file
-    };
 
-    Regulatory.update({project: req.params.id}, myData, (err) => {
+    Regulatory.update({_id: req.params.id}, req.body, (err) => {
         if(err)
             res.json({status: "failure"});
         else
