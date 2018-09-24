@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var projectSchema = new Schema({
     projectNumber: Number,
-    projectStartDate: String,
+    startDate: String,
     projectName: String,
     supplyCategory: String,
     supplierName: String
