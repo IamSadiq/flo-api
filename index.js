@@ -43,7 +43,7 @@ app.use('/api/insurance', InsuranceCtrl);
 app.use('/api/invoice', InvoiceCtrl);
 app.use('/api/mc', McCtrl);
 app.use('/api/pl', PackingListCtrl);
-app.use('/api/receipt', ReceiptCtrl);
+app.use('/api/receipts', ReceiptCtrl);
 app.use('/api/regulatory', RegulatoryCtrl);
 
 app.listen(port);
