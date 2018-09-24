@@ -7,7 +7,7 @@ var BolSchema = new Schema({
         ref: 'Projects'
     },
     docFile: String,
-    shippers: String,
+    shipper: String,
     countryOfOrigin: String,
     numberOfContainers: Number,
     expectedDateOfArrival: String,
