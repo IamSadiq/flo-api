@@ -4,7 +4,7 @@ var User = require('./user-model');
 
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
-var config = require('../../config');
+const config = require('../../config');
 var VerifyToken = require('../../auth/VerifyToken');
 
 // CREATES A NEW USER
