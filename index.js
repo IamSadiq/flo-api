@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 mongoose.connect('mongodb://localhost/flo');
 const app = express();
-const port = 3000;
+const port = process.env.port || 3000;
 // const router = express.Router();
 
 const ProjectCtrl = require('./routes/projects/projects-ctrl');
@@ -23,11 +23,16 @@ const PackingListCtrl = require('./routes/packing-list/packinglist-ctrl');
 const ReceiptCtrl = require('./routes/receipt/receipt-ctrl');
 const RegulatoryCtrl = require('./routes/regulatory/regulatory-ctrl');
 
+const UserCtrl = require('./routes/users/user-ctrl');
+const AuthCtrl = require('./auth/auth-ctrl');
+
 // middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors()); // enable cross-origin resource sharing
 
+app.use('/api/auth', AuthCtrl);
+app.use('/api/users', UserCtrl);
 app.use('/api/project', ProjectCtrl);
 app.use('/api/pfi', PfiCtrl);
 app.use('/api/ccvo', CcvoCtrl);
