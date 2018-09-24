@@ -23,7 +23,6 @@ const McCtrl = require('./routes/mc/mc-ctrl');
 const PackingListCtrl = require('./routes/packing-list/packinglist-ctrl');
 const ReceiptCtrl = require('./routes/receipt/receipt-ctrl');
 const RegulatoryCtrl = require('./routes/regulatory/regulatory-ctrl');
-
 const UserCtrl = require('./routes/users/user-ctrl');
 
 // middlewares
