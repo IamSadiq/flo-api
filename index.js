@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors()); // enable cross-origin resource sharing
 
 app.use('/api/users', UserCtrl);
-app.use('/api/project', ProjectCtrl);
+app.use('/api/projects', ProjectCtrl);
 app.use('/api/pfi', PfiCtrl);
 app.use('/api/ccvo', CcvoCtrl);
 app.use('/api/bol', BolCtrl);
