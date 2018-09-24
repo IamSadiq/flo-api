@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 mongoose.connect('mongodb://localhost/flo');
 const app = express();
 const port = process.env.port || 3000;
-process.env.FloAuthSalt = "wakandaforever";
 // const router = express.Router();
 
 const ProjectCtrl = require('./routes/projects/projects-ctrl');
