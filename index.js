@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 mongoose.connect('mongodb://localhost/flo');
 const app = express();
 const port = process.env.port || 3000;
+process.env.FloAuthSalt = "wakandaforever";
 // const router = express.Router();
 
 const ProjectCtrl = require('./routes/projects/projects-ctrl');
@@ -43,7 +44,7 @@ app.use('/api/insurance', InsuranceCtrl);
 app.use('/api/invoice', InvoiceCtrl);
 app.use('/api/mc', McCtrl);
 app.use('/api/pl', PackingListCtrl);
-app.use('/api/receipts', ReceiptCtrl);
+app.use('/api/receipt', ReceiptCtrl);
 app.use('/api/regulatory', RegulatoryCtrl);
 
 app.listen(port);
