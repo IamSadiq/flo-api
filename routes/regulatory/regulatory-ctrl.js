@@ -1,10 +1,7 @@
 const express = require('express');
 const Regulatory = require('./regulatory-model');
 
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
-var config = require('../../config');
-var VerifyToken = require('../../auth/VerifyToken');
+const VerifyToken = require('../../auth/VerifyToken');
 const User = require('../users/user-model');
 
 
