@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 var config = require('../../config');
 var VerifyToken = require('../../auth/VerifyToken');
-const User = require('../users/user-ctrl');
+const User = require('../users/user-model');
 
 
 const router = express.Router();
