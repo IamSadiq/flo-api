@@ -1,56 +1,84 @@
-// const mongoose = require('mongoose');
 const express = require('express');
-// const bodyPaser = require('body-parser');
 const Regulatory = require('./regulatory-model');
+
+var jwt = require('jsonwebtoken');
+var bcrypt = require('bcryptjs');
+var config = require('../../config');
+var VerifyToken = require('../../auth/VerifyToken');
+const User = require('../users/user-ctrl');
+
 
 const router = express.Router();
 
 router
 
-.get('/', (req, res) => {
-    Regulatory.find({}, (err, data)=>{
-        if(err)
-            res.json({status: "failure"});
-        else
-            res.json(data);
+.get('/', VerifyToken, (req, res) => {
+    User.findById(req.userId, {password: 0}, (err, user) => {
+        if (err) return res.status(500).send("There was a problem finding the user.");
+        if (!user) return res.status(404).send("No user found.");
+
+        Regulatory.find({}, (err, data)=>{
+            if(err)
+                res.json({status: "failure"});
+            else
+                res.json(data);
+        });
     });
 })
 
-.get('/:id', (req, res) => {
-    Regulatory.findById({_id: req.params.id}, (err, data) => {
-        if(err)
-            res.json({status: "failure"});
-        else
-            res.json(data);
+.get('/:id', VerifyToken, (req, res) => {
+    User.findById(req.userId, {password: 0}, (err, user) => {
+        if (err) return res.status(500).send("There was a problem finding the user.");
+        if (!user) return res.status(404).send("No user found.");
+
+        Regulatory.findById({_id: req.params.id}, (err, data) => {
+            if(err)
+                res.json({status: "failure"});
+            else
+                res.json(data);
+        });
     });
 })
 
-.post('/', (req, res) => {
+.post('/', VerifyToken, (req, res) => {
+    User.findById(req.userId, {password: 0}, (err, user) => {
+        if (err) return res.status(500).send("There was a problem finding the user.");
+        if (!user) return res.status(404).send("No user found.");
 
-    Regulatory.create(req.body, (err, response)=>{
-        if(err)
-            res.json({status: "failure"});
-        else
-            res.json({status: "success", regulatoryId: response._id});
+        Regulatory.create(req.body, (err, response)=>{
+            if(err)
+                res.json({status: "failure"});
+            else
+                res.json({status: "success", regulatoryId: response._id});
+        });
     });
 })
 
-.patch('/:id', (req, res) => {
+.patch('/:id', VerifyToken, (req, res) => {
+    User.findById(req.userId, {password: 0}, (err, user) => {
+        if (err) return res.status(500).send("There was a problem finding the user.");
+        if (!user) return res.status(404).send("No user found.");
 
-    Regulatory.update({_id: req.params.id}, req.body, (err) => {
-        if(err)
-            res.json({status: "failure"});
-        else
-            res.json({status: "success"});
+        Regulatory.update({_id: req.params.id}, req.body, (err) => {
+            if(err)
+                res.json({status: "failure"});
+            else
+                res.json({status: "success"});
+        });
     });
 })
 
-.delete('/:id', (req, res) => {
-    Regulatory.remove({_id: req.params.id}, (err) => {
-        if(err)
-            res.json({status: "failure"});
-        else
-            res.json({status: "success"});
+.delete('/:id', VerifyToken, (req, res) => {
+    User.findById(req.userId, {password: 0}, (err, user) => {
+        if (err) return res.status(500).send("There was a problem finding the user.");
+        if (!user) return res.status(404).send("No user found.");
+
+        Regulatory.remove({_id: req.params.id}, (err) => {
+            if(err)
+                res.json({status: "failure"});
+            else
+                res.json({status: "success"});
+        });
     });
 });
 
