@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 // mongoose.connect('mongodb://localhost/flo', { useMongoClient: true });
 mongoose.connect('mongodb://abubakr:flo007@ds131963.mlab.com:31963/flo', { useMongoClient: true });
 const app = express();
-const port = process.env.port || 3000;
+const port = process.env.PORT || 3000;
 
 const ProjectCtrl = require('./routes/projects/projects-ctrl');
 const PfiCtrl = require('./routes/pfi/pfi-ctrl');
