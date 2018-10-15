@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 // mongoose.connect('mongodb://localhost/flo', { useMongoClient: true });
-mongoose.connect('mongodb://abubakr:flo007@ds131963.mlab.com:31963/flo', { useMongoClient: true });
+mongoose.connect('mongodb://<dbuser>:<dbpassword>@ds131963.mlab.com:31963/flo', { useMongoClient: true });
 const app = express();
 const port = process.env.PORT || 3000;
 
