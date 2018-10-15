@@ -3,10 +3,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-mongoose.connect('mongodb://localhost/flo');
+// mongoose.connect('mongodb://localhost/flo');
+mongoose.connect('mongodb://<abubakr>:<flo007>@ds131963.mlab.com:31963/flo');
 const app = express();
 const port = process.env.port || 3000;
-// const router = express.Router();
 
 const ProjectCtrl = require('./routes/projects/projects-ctrl');
 const PfiCtrl = require('./routes/pfi/pfi-ctrl');

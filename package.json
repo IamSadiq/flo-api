@@ -4,8 +4,12 @@
   "description": "Rest Api for the flow shipping management app",
   "main": "index.js",
   "scripts": {
+    "start": "index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "keywords": [
+    "heroku"
+  ],
   "author": "Abubakr Adam <asiddik5@gmail.com>",
   "git repository": "https://github.com/IamSadiq/flo-api.git",
   "license": "ISC",
@@ -21,5 +25,8 @@
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^4.13.5",
     "multer": "^1.3.1"
+  },
+  "engines": {
+    "node": "8.11.1"
   }
 }
