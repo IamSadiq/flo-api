@@ -10,14 +10,23 @@ var VerifyToken = require('../../auth/VerifyToken');
 // CREATES A NEW USER
 router.post('/', (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, 8);
-    User.create(req.body, (err, user) => {
-        if (err) return res.status(500).send("There was a problem adding the information to the database.");
-        // create a token
-        var token = jwt.sign({ id: user._id }, config.secret, {
-            expiresIn: 604800 // expires in 1 week
-        });
-        res.status(200).send({ auth: true, token: token });
+    User.find({email: req.body.email}, {password: 0}, (err, sess_user) => {
+
+        if (err) return res.status(500).send("There was a problem finding the users.");
+        if (sess_user[0]) return res.status(404).send("User already exists.");
+
+        if (!sess_user[0]){
+            User.create(req.body, (err, user) => {
+                if (err) return res.status(500).send("There was a problem adding the information to the database.");
+                // create a token
+                var token = jwt.sign({ id: user._id }, config.secret, {
+                    expiresIn: 604800 // expires in 1 week
+                });
+                res.status(200).send({ auth: true, token: token });
+            });
+        }
     });
+    
 });
 
 // RETURNS ALL THE USERS IN THE DATABASE
